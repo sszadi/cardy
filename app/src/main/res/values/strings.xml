@@ -1,4 +1,30 @@
 <resources>
     <string name="app_name">Cardy</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_card_list">Card List</string>
+    <string name="action_add_card">Add card</string>
+    <string name="amount">Amount</string>
+    <string name="card">Card</string>
+    <string name="card_number">Card Number</string>
+    <string name="save">Save</string>
+    <string name="bank_name">Bank name</string>
+    <string name="goal">Goal</string>
+
+
+    <string-array name="term_type">
+        <item>Amounts</item>
+        <item>Value</item>
+    </string-array>
+
+    <string name="termTypePrompt">Choose term type</string>
+
+    <string-array name="term_time">
+        <item>Year</item>
+        <item>Month</item>
+    </string-array>
+
+    <string name="termTimePrompt">Choose term time</string>
+    <string name="termLabel">Term type</string>
+    <string name="timeLabel">Term time</string>
+
+
 </resources>

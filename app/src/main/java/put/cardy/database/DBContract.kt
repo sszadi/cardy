@@ -6,10 +6,14 @@ object DBContract {
 
     class CardEntry : BaseColumns {
         companion object {
-            val TABLE_NAME = "cards"
-            val CARD_ID = "id"
-            val NUMBER = "number"
-            val BANKNAME = "bankName"
+            const val TABLE_NAME = "Cards"
+            const val CARD_ID = "id"
+            const val NUMBER = "number"
+            const val BANK_NAME = "bankName"
+            const val TYPE = "type"
+            const val TIME = "time"
+            const val GOAL = "goal"
+            const val ACTUAL_GOAL = "actualGoal"
         }
 
     }
