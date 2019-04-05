@@ -57,6 +57,46 @@ class CardRepository(val context: Context) {
         cardList
     }
 
+
+    fun findById(id: Int): Card = context.database.use {
+        var card: Card = Card()
+        select(
+            TABLE_NAME,
+            CARD_ID,
+            NUMBER,
+            BANK_NAME,
+            TYPE,
+            TIME,
+            GOAL,
+            ACTUAL_GOAL
+        ).whereArgs("id = {cardId}", "cardId" to id)
+            .parseSingle(object : MapRowParser<Card> {
+                override fun parseRow(columns: Map<String, Any?>): Card {
+                    val id = columns.getValue(CARD_ID)
+                    val number = columns.getValue(NUMBER)
+                    val bankName = columns.getValue(BANK_NAME)
+                    val type = columns.getValue(TYPE)
+                    val time = columns.getValue(TIME)
+                    val goal = columns.getValue(GOAL)
+                    val actualGoal = columns.getValue(ACTUAL_GOAL)
+
+                    card = Card(
+                        id.toString().toInt(),
+                        number.toString(),
+                        bankName.toString(),
+                        type.toString(),
+                        time.toString(),
+                        goal.toString().toDouble(),
+                        actualGoal.toString().toDouble()
+                    )
+
+                    return card
+                }
+            })
+
+        card
+    }
+
     fun create(card: Card) = context.database.use {
         insert(
             TABLE_NAME,

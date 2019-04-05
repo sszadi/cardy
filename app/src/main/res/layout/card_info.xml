@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
-                                             android:layout_margin="30dp"
+                                             android:layout_margin="20dp"
                                              tools:context=".MainActivity">
+
 
     <include layout="@layout/card_controllers" android:id="@+id/card_controllers"
              android:layout_height="wrap_content"
              android:layout_width="match_parent"/>
 
-    <Button
-            android:id="@+id/addCardButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_alignParentEnd="true"
-            android:text="@string/save"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_controllers"
-            style="@style/Widget.AppCompat.Button.Colored"
-    />
 
 </android.support.constraint.ConstraintLayout>

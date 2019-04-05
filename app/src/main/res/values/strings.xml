@@ -25,6 +25,7 @@
     <string name="termTimePrompt">Choose term time</string>
     <string name="termLabel">Term type</string>
     <string name="timeLabel">Term time</string>
+    <string name="add_your_cards">Add your cards</string>
 
 
 </resources>

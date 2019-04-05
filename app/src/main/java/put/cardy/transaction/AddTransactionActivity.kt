@@ -1,9 +1,9 @@
 package put.cardy.transaction
 
 import android.os.Bundle
-import put.cardy.BaseActivityWithToolbar
+import android.support.v7.app.AppCompatActivity
 
-class AddTransactionActivity : BaseActivityWithToolbar() {
+class AddTransactionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

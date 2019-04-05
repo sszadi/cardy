@@ -2,26 +2,29 @@ package put.cardy
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ListView
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import put.cardy.card.AddCardAtivity
+import put.cardy.card.CardInfoActivity
 import put.cardy.database.CardListAdapter
 import put.cardy.database.CardRepository
 import put.cardy.model.Card
 import put.cardy.transaction.AddTransactionActivity
 
 
-class MainActivity : BaseActivityWithToolbar() {
-
-    private val cardList: ArrayList<Card> = ArrayList<Card>()
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val listView = findViewById<ListView>(R.id.recipe_list_view)
 
-        loadCards()
+        initListView(listView)
+        loadCards(listView)
 
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, AddTransactionActivity::class.java)
@@ -31,12 +34,22 @@ class MainActivity : BaseActivityWithToolbar() {
 
     }
 
-    private fun loadCards() {
-        val listView = findViewById<ListView>(R.id.recipe_list_view)
+    private fun initListView(listView: ListView) {
+        listView.emptyView = findViewById<TextView>(R.id.empty)
+        listView.setOnItemClickListener { _, _, position, _ ->
+            val currentCard = listView.adapter.getItem(position) as Card
+            val intent = Intent(this, CardInfoActivity::class.java)
+            intent.putExtra("id", currentCard.id)
+            this.startActivity(intent)
+        }
+
+    }
+
+    private fun loadCards(listView: ListView) {
         val cards = CardRepository(this).findAll()
         val notesListAdapter = CardListAdapter(this, cards)
-        listView.adapter = notesListAdapter
         notesListAdapter.notifyDataSetChanged()
+        listView.adapter = notesListAdapter
     }
 
 
@@ -61,10 +74,10 @@ class MainActivity : BaseActivityWithToolbar() {
 
 /*
 * TODO:
-* 1. Powrót na listę po zapisie
-* 2. Info, gdy brak kart
-* 3. Widok szczegółowy karty
-* 4. Dodawanie transakcji
-* 5. Notyfikacje
-* 6. Logowanie z google?
+* - Widok szczegółowy karty
+* - Dodawanie transakcji
+* - Notyfikacje
+* - usuwanie
+* - edycja
+* - Logowanie z google?
 * */
