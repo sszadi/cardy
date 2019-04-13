@@ -42,7 +42,7 @@
             android:id="@+id/typeLabel"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dip"
-            android:text="@string/termLabel"
+            android:text="@string/goalLabel"
             android:layout_marginBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,12 +50,12 @@
     />
 
     <Spinner
-            android:id="@+id/termTypeSpinner"
+            android:id="@+id/typeSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:entries="@array/term_type"
-            android:prompt="@string/termTypePrompt"
+            android:entries="@array/goal_type"
+            android:prompt="@string/goalTypePrompt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/typeLabel"/>
@@ -67,37 +67,24 @@
             android:id="@+id/timeLabel"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dip"
-            android:text="@string/timeLabel"
+            android:text="@string/periodLabel"
             android:layout_marginBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/termTypeSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/typeSpinner"
     />
 
     <Spinner
-            android:id="@+id/termTimeSpinner"
+            android:id="@+id/timeSpinner"
             android:layout_width="match_parent"
             android:layout_marginStart="8dp"
             android:layout_height="wrap_content"
-            android:entries="@array/term_time"
-            android:prompt="@string/termTimePrompt"
+            android:entries="@array/goal_period"
+            android:prompt="@string/goalPeriodPrompt"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timeLabel"/>
 
 
-    <EditText
-            android:id="@+id/goal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:hint="@string/goal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/termTimeSpinner"/>
 </android.support.constraint.ConstraintLayout>

@@ -10,22 +10,23 @@
     <string name="goal">Goal</string>
 
 
-    <string-array name="term_type">
-        <item>Amounts</item>
-        <item>Value</item>
+    <string-array name="goal_type">
+        <item>Amount of transactions</item>
+        <item>Transactions expense</item>
     </string-array>
 
-    <string name="termTypePrompt">Choose term type</string>
+    <string name="goalTypePrompt">Choose goal type</string>
 
-    <string-array name="term_time">
+    <string-array name="goal_period">
         <item>Year</item>
         <item>Month</item>
     </string-array>
 
-    <string name="termTimePrompt">Choose term time</string>
-    <string name="termLabel">Term type</string>
-    <string name="timeLabel">Term time</string>
+    <string name="goalPeriodPrompt">Choose goal period</string>
+    <string name="goalLabel">Goal type</string>
+    <string name="periodLabel">Goal period</string>
     <string name="add_your_cards">Add your cards</string>
+    <string name="actual_goal">Actual Goal</string>
 
 
 </resources>

@@ -7,30 +7,24 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ListView
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_main.*
-import put.cardy.card.AddCardAtivity
+import net.danlew.android.joda.JodaTimeAndroid
+import put.cardy.card.AddCardActivity
 import put.cardy.card.CardInfoActivity
 import put.cardy.database.CardListAdapter
 import put.cardy.database.CardRepository
 import put.cardy.model.Card
-import put.cardy.transaction.AddTransactionActivity
 
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        JodaTimeAndroid.init(this)
         setContentView(R.layout.activity_main)
         val listView = findViewById<ListView>(R.id.recipe_list_view)
 
         initListView(listView)
         loadCards(listView)
-
-        fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, AddTransactionActivity::class.java)
-            startActivity(intent)
-        }
-
 
     }
 
@@ -62,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         val id = item.itemId
 
         if (id == R.id.action_add_card) {
-            val intent = Intent(this, AddCardAtivity::class.java)
+            val intent = Intent(this, AddCardActivity::class.java)
             startActivity(intent)
             return true
         }
@@ -74,7 +68,6 @@ class MainActivity : AppCompatActivity() {
 
 /*
 * TODO:
-* - Widok szczegółowy karty
 * - Dodawanie transakcji
 * - Notyfikacje
 * - usuwanie

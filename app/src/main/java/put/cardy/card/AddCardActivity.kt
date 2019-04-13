@@ -8,12 +8,17 @@ import android.view.Menu
 import android.widget.EditText
 import kotlinx.android.synthetic.main.add_card.*
 import kotlinx.android.synthetic.main.card_controllers.*
+import org.joda.time.DateTime
 import put.cardy.MainActivity
 import put.cardy.R
 import put.cardy.database.CardRepository
+import put.cardy.database.GoalRepository
 import put.cardy.model.Card
+import put.cardy.model.Goal
+import put.cardy.model.GoalType
+import put.cardy.model.Period
 
-class AddCardAtivity : AppCompatActivity() {
+class AddCardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,14 +37,25 @@ class AddCardAtivity : AppCompatActivity() {
     private fun createCard() {
         val number = cardNumber.text.toString()
         val name = bankName.text.toString()
-        val type = termTypeSpinner.selectedItem.toString()
-        val time = termTimeSpinner.selectedItem.toString()
+        val type = typeSpinner.selectedItem.toString()
+        val period = timeSpinner.selectedItem.toString()
         val goal = goal.text.toString()
 
 
         if (isProvidedCardValid(number)) {
-            val newCard = Card(0, number, name, type, time, goal.toDouble(), goal.toDouble())
-            CardRepository(this).create(newCard)
+            val newCard = Card(0, number, name)
+            val cardId = CardRepository(this).create(newCard)
+
+            val newGoal = Goal(
+                0,
+                cardId,
+                GoalType.getTypeByText(type),
+                Period.valueOf(period.toUpperCase()),
+                goal.toDouble(),
+                goal.toDouble(),
+                DateTime.now()
+            )
+            GoalRepository(this).create(newGoal)
         }
 
         val intent = Intent(this, MainActivity::class.java)

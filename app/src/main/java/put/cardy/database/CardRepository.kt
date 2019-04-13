@@ -2,14 +2,10 @@ package put.cardy.database
 
 import android.content.Context
 import org.jetbrains.anko.db.*
-import put.cardy.database.DBContract.CardEntry.Companion.ACTUAL_GOAL
 import put.cardy.database.DBContract.CardEntry.Companion.BANK_NAME
-import put.cardy.database.DBContract.CardEntry.Companion.CARD_ID
-import put.cardy.database.DBContract.CardEntry.Companion.GOAL
+import put.cardy.database.DBContract.CardEntry.Companion.ID
+import put.cardy.database.DBContract.CardEntry.Companion.CARD_TABLE_NAME
 import put.cardy.database.DBContract.CardEntry.Companion.NUMBER
-import put.cardy.database.DBContract.CardEntry.Companion.TABLE_NAME
-import put.cardy.database.DBContract.CardEntry.Companion.TIME
-import put.cardy.database.DBContract.CardEntry.Companion.TYPE
 import put.cardy.model.Card
 
 
@@ -19,33 +15,21 @@ class CardRepository(val context: Context) {
         val cardList = ArrayList<Card>()
 
         select(
-            TABLE_NAME,
-            CARD_ID,
+            CARD_TABLE_NAME,
+            ID,
             NUMBER,
-            BANK_NAME,
-            TYPE,
-            TIME,
-            GOAL,
-            ACTUAL_GOAL
+            BANK_NAME
         )
             .parseList(object : MapRowParser<List<Card>> {
                 override fun parseRow(columns: Map<String, Any?>): List<Card> {
-                    val id = columns.getValue(CARD_ID)
+                    val id = columns.getValue(ID)
                     val number = columns.getValue(NUMBER)
                     val bankName = columns.getValue(BANK_NAME)
-                    val type = columns.getValue(TYPE)
-                    val time = columns.getValue(TIME)
-                    val goal = columns.getValue(GOAL)
-                    val actualGoal = columns.getValue(ACTUAL_GOAL)
 
                     val card = Card(
-                        id.toString().toInt(),
+                        id.toString().toLong(),
                         number.toString(),
-                        bankName.toString(),
-                        type.toString(),
-                        time.toString(),
-                        goal.toString().toDouble(),
-                        actualGoal.toString().toDouble()
+                        bankName.toString()
                     )
 
                     cardList.add(card)
@@ -58,36 +42,24 @@ class CardRepository(val context: Context) {
     }
 
 
-    fun findById(id: Int): Card = context.database.use {
+    fun findById(id: Long): Card = context.database.use {
         var card: Card = Card()
         select(
-            TABLE_NAME,
-            CARD_ID,
+            CARD_TABLE_NAME,
+            ID,
             NUMBER,
-            BANK_NAME,
-            TYPE,
-            TIME,
-            GOAL,
-            ACTUAL_GOAL
-        ).whereArgs("id = {cardId}", "cardId" to id)
+            BANK_NAME
+        ).whereArgs("id = {id}", "id" to id)
             .parseSingle(object : MapRowParser<Card> {
                 override fun parseRow(columns: Map<String, Any?>): Card {
-                    val id = columns.getValue(CARD_ID)
+                    val cardId = columns.getValue(ID)
                     val number = columns.getValue(NUMBER)
                     val bankName = columns.getValue(BANK_NAME)
-                    val type = columns.getValue(TYPE)
-                    val time = columns.getValue(TIME)
-                    val goal = columns.getValue(GOAL)
-                    val actualGoal = columns.getValue(ACTUAL_GOAL)
 
                     card = Card(
-                        id.toString().toInt(),
+                        cardId.toString().toLong(),
                         number.toString(),
-                        bankName.toString(),
-                        type.toString(),
-                        time.toString(),
-                        goal.toString().toDouble(),
-                        actualGoal.toString().toDouble()
+                        bankName.toString()
                     )
 
                     return card
@@ -97,33 +69,26 @@ class CardRepository(val context: Context) {
         card
     }
 
-    fun create(card: Card) = context.database.use {
-        insert(
-            TABLE_NAME,
+    fun create(card: Card): Long = context.database.use {
+        val id = insert(
+            CARD_TABLE_NAME,
             NUMBER to card.number,
-            BANK_NAME to card.bankName,
-            TYPE to card.type,
-            TIME to card.time,
-            GOAL to card.goal,
-            ACTUAL_GOAL to card.actualGoal
+            BANK_NAME to card.bankName
         )
+        id
     }
 
     fun update(card: Card) = context.database.use {
         update(
-            TABLE_NAME,
+            CARD_TABLE_NAME,
             NUMBER to card.number,
-            BANK_NAME to card.bankName,
-            TYPE to card.type,
-            TIME to card.time,
-            GOAL to card.goal,
-            ACTUAL_GOAL to card.actualGoal
+            BANK_NAME to card.bankName
         )
             .whereArgs("id = {cardId}", "cardId" to card.id)
             .exec()
     }
 
     fun delete(card: Card) = context.database.use {
-        delete(TABLE_NAME, whereClause = "id = {cardId}", args = *arrayOf("cardId" to card.id))
+        delete(CARD_TABLE_NAME, whereClause = "id = {cardId}", args = *arrayOf("cardId" to card.id))
     }
 }
