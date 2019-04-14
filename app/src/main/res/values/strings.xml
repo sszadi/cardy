@@ -27,6 +27,8 @@
     <string name="periodLabel">Goal period</string>
     <string name="add_your_cards">Add your cards</string>
     <string name="actual_goal">Actual Goal</string>
+    <string name="date">Date</string>
+    <string name="add_transaction">Add transaction</string>
 
 
 </resources>

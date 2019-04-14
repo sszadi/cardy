@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#c7bf98"
+        android:background="@drawable/border"
         android:padding="20dp"
 >
     <TextView
-            android:id="@+id/text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Click me to change my text color"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:id="@+id/dateLabel"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/date"
     />
+
+    <EditText
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/dateLabel"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+    />
+
     <Button
             android:id="@+id/button_popup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Close Me"
+            android:text="@string/add_transaction"
+            style="@style/Widget.AppCompat.Button.Colored"
+
     />
 </LinearLayout>
