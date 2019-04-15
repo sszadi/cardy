@@ -7,6 +7,7 @@
                                              android:layout_margin="30dp"
                                              tools:context=".MainActivity">
 
+
     <include layout="@layout/card_controllers" android:id="@+id/card_controllers"
              android:layout_height="wrap_content"
              android:layout_width="match_parent"/>

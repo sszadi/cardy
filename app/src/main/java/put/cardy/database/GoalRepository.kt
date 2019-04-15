@@ -3,6 +3,9 @@ package put.cardy.database
 import android.content.Context
 import org.jetbrains.anko.db.*
 import org.joda.time.DateTime
+import put.cardy.database.DBContract.DBEntry.Companion.CARD_ID
+import put.cardy.database.DBContract.DBEntry.Companion.DATE
+import put.cardy.database.DBContract.DBEntry.Companion.ID
 import put.cardy.database.DBContract.GoalEntry.Companion.GOAL_TABLE_NAME
 import put.cardy.model.Goal
 import put.cardy.model.GoalType
@@ -17,24 +20,24 @@ class GoalRepository(val context: Context) {
 
         select(
             DBContract.GoalEntry.GOAL_TABLE_NAME,
-            DBContract.GoalEntry.ID,
-            DBContract.GoalEntry.CARD_ID,
+            ID,
+            CARD_ID,
             DBContract.GoalEntry.TYPE,
             DBContract.GoalEntry.PERIOD,
             DBContract.GoalEntry.GOAL,
             DBContract.GoalEntry.ACTUAL_GOAL,
-            DBContract.GoalEntry.DATE
+            DATE
 
         )
             .parseList(object : MapRowParser<List<Goal>> {
                 override fun parseRow(columns: Map<String, Any?>): List<Goal> {
-                    val id = columns.getValue(DBContract.GoalEntry.ID)
-                    val cardId = columns.getValue(DBContract.GoalEntry.CARD_ID)
+                    val id = columns.getValue(ID)
+                    val cardId = columns.getValue(CARD_ID)
                     val type = columns.getValue(DBContract.GoalEntry.TYPE)
                     val period = columns.getValue(DBContract.GoalEntry.PERIOD)
                     val goal = columns.getValue(DBContract.GoalEntry.GOAL)
                     val actualGoal = columns.getValue(DBContract.GoalEntry.ACTUAL_GOAL)
-                    val date = columns.getValue(DBContract.GoalEntry.DATE)
+                    val date = columns.getValue(DATE)
 
                     val goalEntry = Goal(
                         id.toString().toLong(),
@@ -58,12 +61,12 @@ class GoalRepository(val context: Context) {
     fun create(goal: Goal) = context.database.use {
         insert(
             DBContract.GoalEntry.GOAL_TABLE_NAME,
-            DBContract.GoalEntry.CARD_ID to goal.cardId,
+            CARD_ID to goal.cardId,
             DBContract.GoalEntry.TYPE to goal.type.toString(),
             DBContract.GoalEntry.PERIOD to goal.period.toString(),
             DBContract.GoalEntry.GOAL to goal.goal,
             DBContract.GoalEntry.ACTUAL_GOAL to goal.actualGoal,
-            DBContract.GoalEntry.DATE to goal.date.toString()
+            DATE to goal.date.toString()
         )
     }
 
@@ -71,23 +74,23 @@ class GoalRepository(val context: Context) {
         var goalFromDb = Goal()
         select(
             GOAL_TABLE_NAME,
-            DBContract.GoalEntry.ID,
-            DBContract.GoalEntry.CARD_ID,
+            ID,
+            CARD_ID,
             DBContract.GoalEntry.TYPE,
             DBContract.GoalEntry.PERIOD,
             DBContract.GoalEntry.GOAL,
             DBContract.GoalEntry.ACTUAL_GOAL,
-            DBContract.GoalEntry.DATE
+            DATE
         ).whereArgs("id = {id}", "id" to id)
             .parseSingle(object : MapRowParser<Goal> {
                 override fun parseRow(columns: Map<String, Any?>): Goal {
-                    val goalId = columns.getValue(DBContract.GoalEntry.ID)
-                    val cardId = columns.getValue(DBContract.GoalEntry.CARD_ID)
+                    val goalId = columns.getValue(ID)
+                    val cardId = columns.getValue(CARD_ID)
                     val type = columns.getValue(DBContract.GoalEntry.TYPE)
                     val period = columns.getValue(DBContract.GoalEntry.PERIOD)
                     val goal = columns.getValue(DBContract.GoalEntry.GOAL)
                     val actualGoal = columns.getValue(DBContract.GoalEntry.ACTUAL_GOAL)
-                    val date = columns.getValue(DBContract.GoalEntry.DATE)
+                    val date = columns.getValue(DATE)
 
                     goalFromDb = Goal(
                         goalId.toString().toLong(),
@@ -106,19 +109,21 @@ class GoalRepository(val context: Context) {
         goalFromDb
     }
 
-    fun update(goal: Goal) = context.database.use {
-        update(
+    fun update(goal: Goal): Long = context.database.use {
+        val id = update(
             DBContract.GoalEntry.GOAL_TABLE_NAME,
-            DBContract.GoalEntry.CARD_ID to goal.cardId,
-            DBContract.GoalEntry.TYPE to goal.type,
-            DBContract.GoalEntry.PERIOD to goal.period,
+            CARD_ID to goal.cardId,
+            DBContract.GoalEntry.TYPE to goal.type.toString(),
+            DBContract.GoalEntry.PERIOD to goal.period.toString(),
             DBContract.GoalEntry.GOAL to goal.goal,
             DBContract.GoalEntry.ACTUAL_GOAL to goal.actualGoal,
-            DBContract.GoalEntry.DATE to goal.date
+            DATE to goal.date.toString()
 
         )
             .whereArgs("id = {id}", "id" to goal.id)
             .exec()
+
+        id.toLong()
     }
 
     fun delete(goal: Goal) = context.database.use {

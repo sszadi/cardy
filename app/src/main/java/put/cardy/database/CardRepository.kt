@@ -3,9 +3,9 @@ package put.cardy.database
 import android.content.Context
 import org.jetbrains.anko.db.*
 import put.cardy.database.DBContract.CardEntry.Companion.BANK_NAME
-import put.cardy.database.DBContract.CardEntry.Companion.ID
 import put.cardy.database.DBContract.CardEntry.Companion.CARD_TABLE_NAME
 import put.cardy.database.DBContract.CardEntry.Companion.NUMBER
+import put.cardy.database.DBContract.DBEntry.Companion.ID
 import put.cardy.model.Card
 
 

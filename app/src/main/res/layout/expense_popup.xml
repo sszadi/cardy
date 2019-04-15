@@ -9,12 +9,25 @@
         android:background="@drawable/border"
         android:padding="20dp"
 >
+    <EditText
+            android:id="@+id/expense"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:hint="@string/your_expense"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+    />
+
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/dateLabel"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/expense"
             android:text="@string/date"
     />
 
@@ -30,12 +43,6 @@
             android:singleLine="true"
     />
 
-    <Button
-            android:id="@+id/button_popup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_transaction"
-            style="@style/Widget.AppCompat.Button.Colored"
+    <include layout="@layout/popup_buttons"/>
 
-    />
 </LinearLayout>

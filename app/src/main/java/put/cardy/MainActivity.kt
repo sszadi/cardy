@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         JodaTimeAndroid.init(this)
-        setContentView(R.layout.activity_main)
-        val listView = findViewById<ListView>(R.id.recipe_list_view)
+        setContentView(R.layout.list_activity)
+        val listView = findViewById<ListView>(R.id.list_view)
 
         initListView(listView)
         loadCards(listView)
@@ -69,8 +69,9 @@ class MainActivity : AppCompatActivity() {
 /*
 * TODO:
 * - Dodawanie transakcji
+* - Lista transakcji
 * - Notyfikacje
-* - usuwanie
-* - edycja
-* - Logowanie z google?
+* - usuwanie i edycja karty
+* - usuwanie transakcji
+* - dodać scrolle
 * */

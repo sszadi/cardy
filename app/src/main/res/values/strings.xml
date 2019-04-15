@@ -29,6 +29,8 @@
     <string name="actual_goal">Actual Goal</string>
     <string name="date">Date</string>
     <string name="add_transaction">Add transaction</string>
+    <string name="close">Close</string>
+    <string name="your_expense">Your expense</string>
 
 
 </resources>

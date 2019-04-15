@@ -1,18 +1,17 @@
-package put.cardy.database
+package put.cardy.transaction
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.ImageView
 import android.widget.TextView
 import put.cardy.R
-import put.cardy.model.Card
+import put.cardy.model.Transaction
 
-class CardListAdapter(
+class TransactionListAdapter(
     context: Context,
-    private val dataSource: ArrayList<Card>
+    private val dataSource: ArrayList<Transaction>
 ) : BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -30,12 +29,12 @@ class CardListAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val currentCard = getItem(position) as Card
-        val rowView = inflater.inflate(R.layout.list_item_card, parent, false)
-        val cardNumberView = rowView.findViewById(R.id.cardNumber) as TextView
-        val bankNameView = rowView.findViewById(R.id.bankName) as TextView
-        cardNumberView.text = currentCard.number
-        bankNameView.text = currentCard.bankName
+        val currentTransaction = getItem(position) as Transaction
+        val rowView = inflater.inflate(R.layout.list_item_transaction, parent, false)
+        val date = rowView.findViewById(R.id.date) as TextView
+        val expense = rowView.findViewById(R.id.expense) as TextView
+        date.text = currentTransaction.date.toString()
+        expense.text = currentTransaction.expense.toString()
         return rowView
     }
 }
