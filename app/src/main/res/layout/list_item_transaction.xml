@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal" android:layout_width="match_parent"
+              android:orientation="horizontal" android:layout_width="fill_parent"
               android:layout_height="wrap_content"
 >
     <ImageView
@@ -9,7 +9,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/money"
-            android:padding="5dp"
+            android:padding="3dp"
 
     />
     <LinearLayout
@@ -17,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="5dp"
     >
         <TextView
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
-                android:textSize="18sp"
+                android:textSize="15sp"
         />
         <TextView
                 android:id="@+id/expense"
@@ -34,5 +34,15 @@
                 android:layout_marginTop="4dp"
         />
     </LinearLayout>
+
+    <ImageView
+            android:id="@+id/imview2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close"
+            android:layout_weight="0.2"
+            android:gravity="end"
+            android:padding="5dp"
+    />
 
 </LinearLayout>

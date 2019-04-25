@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import net.danlew.android.joda.JodaTimeAndroid
@@ -44,6 +45,15 @@ class MainActivity : AppCompatActivity() {
         val notesListAdapter = CardListAdapter(this, cards)
         notesListAdapter.notifyDataSetChanged()
         listView.adapter = notesListAdapter
+        addDeleteListener()
+    }
+
+    private fun addDeleteListener() {
+        val deleteButton = findViewById<ImageView>(R.id.delete)
+        deleteButton.setOnClickListener(
+            
+        )
+
     }
 
 
@@ -70,6 +80,8 @@ class MainActivity : AppCompatActivity() {
 * TODO:
 * - Dodawanie transakcji
 * - Lista transakcji
+* - usuwanie transakcji
+*  - menu
 * - Notyfikacje
 * - usuwanie i edycja karty
 * - usuwanie transakcji
