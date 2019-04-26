@@ -6,6 +6,7 @@ import put.cardy.database.DBContract.CardEntry.Companion.BANK_NAME
 import put.cardy.database.DBContract.CardEntry.Companion.CARD_TABLE_NAME
 import put.cardy.database.DBContract.CardEntry.Companion.NUMBER
 import put.cardy.database.DBContract.DBEntry.Companion.ID
+import put.cardy.database.DBContract.TransactionEntry.Companion.TRANSACTION_TABLE_NAME
 import put.cardy.model.Card
 
 
@@ -90,5 +91,11 @@ class CardRepository(val context: Context) {
 
     fun delete(card: Card) = context.database.use {
         delete(CARD_TABLE_NAME, whereClause = "id = {cardId}", args = *arrayOf("cardId" to card.id))
+        delete(TRANSACTION_TABLE_NAME, whereClause = "cardId = {cardId}", args = *arrayOf("cardId" to card.id))
+        delete(
+            DBContract.GoalEntry.GOAL_TABLE_NAME,
+            whereClause = "cardId = {cardId}",
+            args = *arrayOf("cardId" to card.id)
+        )
     }
 }

@@ -37,15 +37,15 @@
         />
     </LinearLayout>
 
-
     <ImageView
             android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/close"
             android:layout_weight="0.2"
-            android:gravity="end"
-            android:padding="5dp"
-    />
+            android:clickable="true"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:focusable="true"/>
 
 </LinearLayout>

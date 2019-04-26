@@ -2,6 +2,7 @@ package put.cardy.transaction
 
 import android.content.Context
 import org.jetbrains.anko.db.MapRowParser
+import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.joda.time.DateTime
@@ -52,6 +53,14 @@ class TransactionRepository(val context: Context) {
             DBContract.DBEntry.CARD_ID to transaction.cardId,
             DBContract.DBEntry.DATE to transaction.date.toString(),
             EXPENSE to transaction.expense
+        )
+    }
+
+    fun delete(transaction: Transaction) = context.database.use {
+        delete(
+            DBContract.TransactionEntry.TRANSACTION_TABLE_NAME,
+            whereClause = "id = {id}",
+            args = *arrayOf("id" to transaction.id)
         )
     }
 }

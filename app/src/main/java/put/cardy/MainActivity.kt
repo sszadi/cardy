@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
@@ -37,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("id", currentCard.id)
             this.startActivity(intent)
         }
-
     }
 
     private fun loadCards(listView: ListView) {
@@ -45,15 +45,6 @@ class MainActivity : AppCompatActivity() {
         val notesListAdapter = CardListAdapter(this, cards)
         notesListAdapter.notifyDataSetChanged()
         listView.adapter = notesListAdapter
-        addDeleteListener()
-    }
-
-    private fun addDeleteListener() {
-        val deleteButton = findViewById<ImageView>(R.id.delete)
-        deleteButton.setOnClickListener(
-            
-        )
-
     }
 
 

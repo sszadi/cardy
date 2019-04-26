@@ -13,8 +13,8 @@
 
     />
     <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="5dp"
@@ -36,13 +36,15 @@
     </LinearLayout>
 
     <ImageView
-            android:id="@+id/imview2"
+            android:id="@+id/delete"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/close"
             android:layout_weight="0.2"
-            android:gravity="end"
-            android:padding="5dp"
-    />
+            android:clickable="true"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:focusable="true"/>
+
 
 </LinearLayout>

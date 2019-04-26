@@ -31,6 +31,9 @@
     <string name="add_transaction">Add transaction</string>
     <string name="close">Close</string>
     <string name="your_expense">Your expense</string>
+    <string name="delete_record_info">Delete this record?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
 </resources>
