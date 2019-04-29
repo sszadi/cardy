@@ -34,6 +34,8 @@
     <string name="delete_record_info">Delete this record?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="edit_card">Edit card</string>
+    <string name="transaction_list">Transaction List</string>
 
 
 </resources>

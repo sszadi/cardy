@@ -6,14 +6,12 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.InputType
 import android.transition.TransitionManager
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.WindowManager
+import android.view.*
 import android.widget.*
 import kotlinx.android.synthetic.main.card_controllers.*
 import kotlinx.android.synthetic.main.card_info.*
 import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
+import put.cardy.DateFromatter
 import put.cardy.R
 import put.cardy.database.CardRepository
 import put.cardy.database.GoalRepository
@@ -42,6 +40,11 @@ class CardInfoActivity : AppCompatActivity() {
             openPopup()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getGoalInfo(card.id)
     }
 
     private fun openPopup() {
@@ -79,15 +82,12 @@ class CardInfoActivity : AppCompatActivity() {
             expenseField?.let {
                 expense = expenseField.text.toString().toDouble()
             }
-            cardGoal.actualGoal = goalStrategy.manageTransactionAdded(cardGoal, expense)
-            val goalId = GoalRepository(context = this).update(cardGoal)
             TransactionRepository(this).create(Transaction(0, card.id, DateTime.now(), expense))
-            getGoalInfo(goalId)
+            val transactionList = TransactionRepository(context = this).findByCardId(card.id)
+            cardGoal.actualGoal = goalStrategy.manageTransactionAdded(cardGoal, transactionList)
+            GoalRepository(context = this).update(cardGoal)
+            getGoalInfo(card.id)
             popupWindow.dismiss()
-            val intent = Intent(this, TransactionListActivity::class.java)
-            intent.putExtra("id", card.id)
-            this.startActivity(intent)
-
         }
 
         TransitionManager.beginDelayedTransition(root_layout)
@@ -100,11 +100,28 @@ class CardInfoActivity : AppCompatActivity() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_list, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_edit ->
+                // do something
+                true
+            R.id.action_list -> {
+                val intent = Intent(this, TransactionListActivity::class.java)
+                intent.putExtra("id", card.id)
+                this.startActivity(intent)
+                true
+            }
+            else -> super.onContextItemSelected(item)
+        }
+    }
+
     private fun getActualDate(): String? {
-        val now = DateTime.now()
-        val fmt = DateTimeFormat.forPattern("d MMMM, yyyy HH:HH")
-        val str = now.toString(fmt)
-        return str
+        return DateFromatter.format(DateTime.now())
     }
 
     private fun disableInputs() {
@@ -122,9 +139,6 @@ class CardInfoActivity : AppCompatActivity() {
         val intent = intent
         val id = intent.getLongExtra("id", 0)
         card = CardRepository(this).findById(id)
-        getGoalInfo(card.id)
-
-
         cardNumber.setText(card.number)
         bankName.setText(card.bankName)
 

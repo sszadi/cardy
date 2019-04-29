@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.view.Menu
 import android.widget.EditText
 import kotlinx.android.synthetic.main.add_card.*
 import kotlinx.android.synthetic.main.card_controllers.*
@@ -18,6 +17,7 @@ import put.cardy.model.Goal
 import put.cardy.model.GoalType
 import put.cardy.model.Period
 
+
 class AddCardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +27,6 @@ class AddCardActivity : AppCompatActivity() {
         addCardButton.setOnClickListener {
             createCard()
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
     }
 
     private fun createCard() {

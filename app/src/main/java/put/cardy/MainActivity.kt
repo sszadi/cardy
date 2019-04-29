@@ -69,12 +69,10 @@ class MainActivity : AppCompatActivity() {
 
 /*
 * TODO:
-* - Dodawanie transakcji
-* - Lista transakcji
-* - usuwanie transakcji
 *  - menu
 * - Notyfikacje
-* - usuwanie i edycja karty
-* - usuwanie transakcji
+* - required na polach
+* - edycja karty
 * - dodać scrolle
+* - n
 * */

@@ -2,10 +2,18 @@ package put.cardy.card
 
 import put.cardy.R
 import put.cardy.model.Goal
+import put.cardy.model.Transaction
+import java.util.*
 
 class ExpenseGoalStrategy : GoalStrategy {
-    override fun manageTransactionAdded(cardGoal: Goal, expense: Double): Double {
-        return cardGoal.actualGoal - expense.toDouble()
+    override fun manageTransactionAdded(cardGoal: Goal, transactions: ArrayList<Transaction>): Double {
+        cardGoal.actualGoal = cardGoal.goal
+        transactions.forEach {
+            if (cardGoal.actualGoal != 0.0) {
+                cardGoal.actualGoal -= it.expense!!
+            }
+        }
+        return cardGoal.actualGoal
     }
 
     override fun getPopupId(): Int {

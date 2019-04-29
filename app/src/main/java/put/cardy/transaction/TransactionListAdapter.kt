@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import put.cardy.DateFromatter
 import put.cardy.R
-import put.cardy.database.CardRepository
 import put.cardy.model.Transaction
 
 class TransactionListAdapter(
@@ -39,9 +39,16 @@ class TransactionListAdapter(
         val expense = rowView.findViewById(R.id.expense) as TextView
         val deleteButton = rowView.findViewById<ImageView>(R.id.delete)
         deleteButton.setOnClickListener { manageItemDelete(position, currentTransaction) }
-        date.text = currentTransaction.date.toString()
-        expense.text = currentTransaction.expense.toString()
+        date.text = DateFromatter.format(currentTransaction.date)
+        manageTextView(currentTransaction.expense.toString(), expense)
         return rowView
+    }
+
+    private fun manageTextView(text: String, textView: TextView) {
+        if (text != "0.0")
+            textView.text = text
+        else
+            textView.visibility = View.INVISIBLE
     }
 
     private fun manageItemDelete(position: Int, currentTransaction: Transaction) {

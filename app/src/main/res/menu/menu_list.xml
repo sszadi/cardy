@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+    <item android:id="@+id/action_edit"
+          android:title="@string/edit_card"
+          android:orderInCategory="100"
+          app:showAsAction="never"
+          android:icon="@drawable/edit"/>
+
+    <item android:id="@+id/action_list"
+          android:title="@string/transaction_list"
+          android:orderInCategory="100"
+          app:showAsAction="never"
+          android:icon="@drawable/list"/>
+</menu>
