@@ -69,10 +69,9 @@ class MainActivity : AppCompatActivity() {
 
 /*
 * TODO:
-*  - menu
 * - Notyfikacje
 * - required na polach
 * - edycja karty
 * - dodać scrolle
-* - n
+* - oznaczenie zakończonych kart
 * */

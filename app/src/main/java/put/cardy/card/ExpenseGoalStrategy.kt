@@ -6,7 +6,7 @@ import put.cardy.model.Transaction
 import java.util.*
 
 class ExpenseGoalStrategy : GoalStrategy {
-    override fun manageTransactionAdded(cardGoal: Goal, transactions: ArrayList<Transaction>): Double {
+    override fun calculateActualGoal(cardGoal: Goal, transactions: ArrayList<Transaction>): Double {
         cardGoal.actualGoal = cardGoal.goal
         transactions.forEach {
             if (cardGoal.actualGoal != 0.0) {

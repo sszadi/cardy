@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.card_controllers.*
 import kotlinx.android.synthetic.main.card_info.*
 import org.joda.time.DateTime
 import put.cardy.DateFromatter
+import put.cardy.FieldValidator.Companion.validateField
 import put.cardy.R
 import put.cardy.database.CardRepository
 import put.cardy.database.GoalRepository
@@ -34,7 +35,6 @@ class CardInfoActivity : AppCompatActivity() {
         setContentView(R.layout.card_info)
 
         disableInputs()
-        getCardInfo()
 
         fab.setOnClickListener {
             openPopup()
@@ -44,7 +44,8 @@ class CardInfoActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        getGoalInfo(card.id)
+        getCardInfo()
+
     }
 
     private fun openPopup() {
@@ -82,11 +83,12 @@ class CardInfoActivity : AppCompatActivity() {
             expenseField?.let {
                 expense = expenseField.text.toString().toDouble()
             }
-            TransactionRepository(this).create(Transaction(0, card.id, DateTime.now(), expense))
-            val transactionList = TransactionRepository(context = this).findByCardId(card.id)
-            cardGoal.actualGoal = goalStrategy.manageTransactionAdded(cardGoal, transactionList)
-            GoalRepository(context = this).update(cardGoal)
-            getGoalInfo(card.id)
+            if (validateField(expense.toString(), expenseField)) {
+                TransactionRepository(this).create(Transaction(0, card.id, DateTime.now(), expense))
+                cardGoal.actualGoal = calculateActualGoal()
+                GoalRepository(context = this).update(cardGoal)
+                getGoalInfo(cardGoal)
+            }
             popupWindow.dismiss()
         }
 
@@ -124,6 +126,11 @@ class CardInfoActivity : AppCompatActivity() {
         return DateFromatter.format(DateTime.now())
     }
 
+    private fun calculateActualGoal(): Double {
+        val transactionList = TransactionRepository(context = this).findByCardId(card.id)
+        return goalStrategy.calculateActualGoal(cardGoal, transactionList)
+    }
+
     private fun disableInputs() {
         cardNumber.inputType = InputType.TYPE_NULL
         bankName.inputType = InputType.TYPE_NULL
@@ -139,19 +146,19 @@ class CardInfoActivity : AppCompatActivity() {
         val intent = intent
         val id = intent.getLongExtra("id", 0)
         card = CardRepository(this).findById(id)
+        cardGoal = GoalRepository(this).findByCardId(id)
+        getGoalInfo(cardGoal)
         cardNumber.setText(card.number)
         bankName.setText(card.bankName)
 
     }
 
-    private fun getGoalInfo(id: Long) {
-        cardGoal = GoalRepository(this).findByCardId(id)
-        resolveGoalStrategy(cardGoal.type)
-        typeSpinner.setSelection(getIndex(typeSpinner, cardGoal.type!!.name))
-        timeSpinner.setSelection(getIndex(timeSpinner, cardGoal.period.toString()))
-
-        goal.setText(goalStrategy.getGoalValue(cardGoal.goal))
-        actualGoal.setText(goalStrategy.getActualGoalValue(cardGoal.actualGoal))
+    private fun getGoalInfo(currentGoal: Goal) {
+        resolveGoalStrategy(currentGoal.type)
+        typeSpinner.setSelection(getIndex(typeSpinner, currentGoal.type!!.name))
+        timeSpinner.setSelection(getIndex(timeSpinner, currentGoal.period.toString()))
+        goal.setText(goalStrategy.getGoalValue(currentGoal.goal))
+        actualGoal.setText(goalStrategy.getActualGoalValue(calculateActualGoal()))
     }
 
     private fun resolveGoalStrategy(type: GoalType?) {

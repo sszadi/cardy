@@ -3,11 +3,11 @@ package put.cardy.card
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.TextUtils
 import android.widget.EditText
 import kotlinx.android.synthetic.main.add_card.*
 import kotlinx.android.synthetic.main.card_controllers.*
 import org.joda.time.DateTime
+import put.cardy.FieldValidator.Companion.validateField
 import put.cardy.MainActivity
 import put.cardy.R
 import put.cardy.database.CardRepository
@@ -34,10 +34,10 @@ class AddCardActivity : AppCompatActivity() {
         val name = bankName.text.toString()
         val type = typeSpinner.selectedItem.toString()
         val period = timeSpinner.selectedItem.toString()
-        val goal = goal.text.toString()
+        val goalValue = goal.text.toString()
 
 
-        if (isProvidedCardValid(number)) {
+        if (isProvidedCardValid(number, cardNumber, name, bankName, goalValue, goal)) {
             val newCard = Card(0, number, name)
             val cardId = CardRepository(this).create(newCard)
 
@@ -46,8 +46,8 @@ class AddCardActivity : AppCompatActivity() {
                 cardId,
                 GoalType.getTypeByText(type),
                 Period.valueOf(period.toUpperCase()),
-                goal.toDouble(),
-                goal.toDouble(),
+                goalValue.toDouble(),
+                goalValue.toDouble(),
                 DateTime.now()
             )
             GoalRepository(this).create(newGoal)
@@ -57,16 +57,15 @@ class AddCardActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun isProvidedCardValid(number: String): Boolean {
-        return validateFields(number, cardNumber) && validateFields(number, cardNumber)
-    }
-
-    private fun validateFields(value: String, field: EditText): Boolean {
-        if (TextUtils.isEmpty(value)) {
-            field.error = "Field is required!"
-            return false
-        }
-        return true
+    private fun isProvidedCardValid(
+        number: String,
+        cardNumber: EditText,
+        name: String,
+        bankName: EditText,
+        goalValue: String,
+        goal: EditText
+    ): Boolean {
+        return validateField(number, cardNumber) && validateField(name, bankName) && validateField(goalValue, goal)
     }
 
 
