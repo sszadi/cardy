@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.AdapterView
-import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import net.danlew.android.joda.JodaTimeAndroid
@@ -24,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         JodaTimeAndroid.init(this)
         setContentView(R.layout.list_activity)
         val listView = findViewById<ListView>(R.id.list_view)
-
         initListView(listView)
         loadCards(listView)
 
@@ -43,10 +40,10 @@ class MainActivity : AppCompatActivity() {
     private fun loadCards(listView: ListView) {
         val cards = CardRepository(this).findAll()
         val notesListAdapter = CardListAdapter(this, cards)
+
         notesListAdapter.notifyDataSetChanged()
         listView.adapter = notesListAdapter
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -66,12 +63,3 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-
-/*
-* TODO:
-* - Notyfikacje
-* - required na polach
-* - edycja karty
-* - dodać scrolle
-* - oznaczenie zakończonych kart
-* */

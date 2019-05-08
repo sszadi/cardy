@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.card_controllers.*
 import org.joda.time.DateTime
 import put.cardy.FieldValidator.Companion.validateField
 import put.cardy.MainActivity
+import put.cardy.NotificationUtils
 import put.cardy.R
 import put.cardy.database.CardRepository
 import put.cardy.database.GoalRepository
@@ -51,6 +52,8 @@ class AddCardActivity : AppCompatActivity() {
                 DateTime.now()
             )
             GoalRepository(this).create(newGoal)
+            NotificationUtils().setNotification(newCard.number, newGoal.period, this)
+
         }
 
         val intent = Intent(this, MainActivity::class.java)

@@ -109,9 +109,6 @@ class CardInfoActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_edit ->
-                // do something
-                true
             R.id.action_list -> {
                 val intent = Intent(this, TransactionListActivity::class.java)
                 intent.putExtra("id", card.id)

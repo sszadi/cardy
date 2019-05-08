@@ -7,8 +7,8 @@ class FieldValidator {
 
     companion object {
 
-        fun validateField(value: String, field: EditText): Boolean {
-            if (TextUtils.isEmpty(value)) {
+        fun validateField(value: String, field: EditText?): Boolean {
+            if (field != null && TextUtils.isEmpty(value)) {
                 field.error = "Field is required!"
                 return false
             }
